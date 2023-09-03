@@ -1,0 +1,387 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FAQ{% endblock %}
+{% block content %}    
+    
+    <!-- Page loading styles -->
+    <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .dark-mode .page-loading {
+        background-color: #0b0f19;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
+      .dark-mode .page-loading-inner > span {
+        color: #fff;
+        opacity: .6;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #b4b7c9;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      .dark-mode .page-spinner {
+        border-color: rgba(255,255,255,.4);
+        border-right-color: transparent;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== null && mode === 'dark') {
+        root.classList.add('dark-mode');
+      } else {
+        root.classList.remove('dark-mode');
+      }
+    </script>
+
+    <!-- Page loading scripts -->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 1000);
+        };
+      })();
+    </script>
+  </head>
+
+
+  
+
+    <!-- Page wrapper for sticky footer -->
+    <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
+    <main class="page-wrapper">
+
+      <!-- Page title -->
+      <section class="container-fluid pb-5 mb-md-2 mb-lg-4 mb-xl-5">
+        <div class="offset-md-1" style="padding-top: 14px;">
+        <div class="row pb-5 mb-md-2 mb-lg-4 mb-xl-5">
+          <div class="col-lg-12">
+            <h1 class="display-6 mb-0">Market Research-Project Management Tool</h1>
+          </div>
+          <!-- <div class="col-lg-6 col-xl-5 offset-xl-1 pt-3 pt-sm-4 pt-lg-3">
+            <p class="fs-xl pb-4 mb-1 mb-md-2 mb-xl-3">We are a team of top industry leaders with years of experience in web design and development as well as Market Research who strive for creating web applications for Project Management and Panel Management that helps you to attract the attention of your potential customers and business partners.</p>
+            <a href="#" class="btn btn-lg btn-primary shadow-primary">Contact Us</a>
+          </div> -->
+        </div>
+      </div>
+        <hr>
+      </section>
+
+
+      <!-- What we offer -->
+      <section class="overflow-hidden pt-md-2 pt-lg-3 pb-3 pb-md-4 pb-xl-5">
+        <div class="container">
+          <div class="d-flex flex-column flex-md-row flex-md-nowrap align-items-start">
+            <div class="col-md-7 ps-0 pe-lg-4 mb-5 mb-md-0">
+              <div style="max-width: 660px;">
+                <h2 class="h1 pb-3 mb-2 mb-md-3">Top Features of our Tool</h2>
+                <div class="row row-cols-1 row-cols-sm-2 gx-lg-5 g-4">
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <i class="bx bx-rocket d-block fs-2 text-primary mb-2 mb-sm-3"></i>
+                    <h3 class="h5 pb-sm-1 mb-2">Projects with sub-tasks and deadlines</h3>
+                    <!-- <p class="mb-0">Companies are attracted to the simplicity of which they can convey studies to a focus on gathering and get prompt outcomes.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <i class="bx bx-like d-block fs-2 text-primary mb-2 mb-sm-3"></i>
+                    <h3 class="h5 pb-sm-1 mb-2">Real-time dashboard</h3>
+                    <!-- <p class="mb-0">The panel management software gives higher reaction rates and increasingly dependable criticism.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-group d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Shared team calendar & meeting scheduling</h3>
+                    <!-- <p class="mb-0">Panel management software gives quicker outcomes than practically some other strategy for research.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-time-five d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Detailed reports on project progress and finances</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-time-five d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Quoting and invoicing with pre-set templates</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-time-five d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Assigned user roles</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-time-five d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Online team discussions and chats</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-time-five d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Task delegating and assignments</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-time-five d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Secure file storage</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                  <div class="col pt-1 pt-sm-2 pt-lg-3">
+                    <!-- <i class="bx bx-check d-block fs-2 text-primary mb-2 mb-sm-3"></i> -->
+                    <h3 class="h5 pb-sm-1 mb-2">Email and desktop notifications</h3>
+                    <!-- <p class="mb-0">Owning and dealing with a panel inside expenses primarily not as much as buying tests purchased from another source.</p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img src="{% static 'assets/img/services/single/dashboard03.png' %}" width="836" class="ms-3 ms-sm-5 ms-xl-3" alt="Dashboard">
+          </div>
+        </div>
+      </section>
+
+
+      <!-- How we work (Steps) -->
+      <section class="container pb-5 mb-md-2 mb-lg-4 mb-xl-5">
+        <h2 class="h1 pb-2 pb-md-0 mb-4 mb-md-5">How We Work?</h2>
+        <div class="steps steps-sm steps-horizontal-md pb-2 pb-sm-3">
+          <div class="step">
+            <div class="step-number">
+              <div class="step-number-inner">1</div>
+            </div>
+            <div class="step-body">
+              <h3 class="h4 mb-3">Collecting information to identify problem</h3>
+              <!-- <p class="mb-0">Massa enim libero dictumst consectetur in convallis lobortis cursus mi a magna ullamcorper consectetur commodo fermentum.</p> -->
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">
+              <div class="step-number-inner">2</div>
+            </div>
+            <div class="step-body">
+              <h3 class="h4 mb-3">Conducting a user research</h3>
+              <!-- <p class="mb-0">At ultricies id non quisque integer eget velit. Facilisis enim malesuada metus, risus amet ultricies magna aliquam bibendum convallis.</p> -->
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">
+              <div class="step-number-inner">3</div>
+            </div>
+            <div class="step-body">
+              <h3 class="h4 mb-3">Creating low-fidelity prototypes</h3>
+              <!-- <p class="mb-0">Pellentesque rhoncus viverra vestibulum, purus purus quisque quisque vestibulum facilisis dictumst consequat enim libero.</p> -->
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">
+              <div class="step-number-inner">4</div>
+            </div>
+            <div class="step-body">
+              <h3 class="h4 mb-3">Building product MVP version</h3>
+              <!-- <p class="mb-0">Quam dolor commodo fermentum bibendum dictumst. Risus pretium eget at viverra eget neque adipiscing lobortis cursus.</p> -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Brands (Carousel) -->
+      <section class="container pb-5 mb-xl-4">
+        <h2 class="text-center pb-md-2">Trusted by Leading Companies</h2>
+        <div class="swiper mx-n2" data-swiper-options='{
+          "slidesPerView": 2,
+          "pagination": {
+            "el": ".swiper-pagination",
+            "clickable": true
+          },
+          "breakpoints": {
+            "500": {
+              "slidesPerView": 3,
+              "spaceBetween": 8
+            },
+            "650": {
+              "slidesPerView": 4,
+              "spaceBetween": 8
+            },
+            "900": {
+              "slidesPerView": 5,
+              "spaceBetween": 8
+            },
+            "1100": {
+              "slidesPerView": 6,
+              "spaceBetween": 8
+            }
+          }
+        }'>
+          <div class="swiper-wrapper">
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/01.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/02.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/03.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/04.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/05.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/06.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+          </div>
+
+          <!-- Pagination (bullets) -->
+          <div class="swiper-pagination position-relative pt-2 mt-4"></div>
+        </div>
+      </section>
+
+
+      <!-- Image + Text sections -->
+      <section class="container pb-sm-1 pb-md-3">
+
+        <!-- Row 1 -->
+        <div class="row align-items-lg-center pb-5 mb-2 mb-lg-4 mb-xl-5">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img src="{% static 'assets/img/services/single/image05(1).png' %}" class="rounded-3" alt="Image">
+          </div>
+          <div class="col-md-6">
+            <div class="ps-xl-5 ms-md-2 ms-lg-4">
+              <h2 class="h1 mb-3 mb-sm-4">We personalize how we work to fit your project needs</h2>
+              <p class="mb-4 mb-lg-5">Massa enim libero dictumst consectetur in convallis lobortis cursus mi a magna ullamcorper consectetur purus quisque.</p>
+              <!-- <a href="#" class="btn btn-lg btn-primary shadow-primary">Start your project</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row align-items-lg-center pt-md-3 pb-5 mb-2 mb-lg-4 mb-xl-5">
+          <div class="col-md-6 order-md-2 mb-4 mb-md-0">
+            <img src="{% static 'assets/img/services/single/image06.png' %}" class="rounded-3" alt="Image">
+          </div>
+          <div class="col-md-6 order-md-1">
+            <div class="pe-xl-5 me-md-2 me-lg-4">
+              <h2 class="h1 mb-3 mb-sm-4">Product development with the best experience</h2>
+              <p class="mb-3 mb-sm-4" style="text-align: justify;">We create diverse, complex, web and mobile solutions for any business need. With us you get quality software and perfect service every time. Quisque integer eget velit facilisis enim malesuada metus, risus amet ultricies.</p>
+              <ul class="list-unstyled mb-0">
+                <li class="d-flex mb-2">
+                  <i class="bx bx-check text-primary lead me-2"></i>
+                  Quis euismod lacus, at consectetur porta
+                </li>
+                <li class="d-flex mb-2">
+                  <i class="bx bx-check text-primary lead me-2"></i>
+                  Dictumst enim lectus dis eget non metus cras
+                </li>
+                <li class="d-flex">
+                  <i class="bx bx-check text-primary lead me-2"></i>
+                  Risus volutpat tellus hendrerit nibh
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- CTA -->
+      <section class="position-relative bg-dark py-5">
+        <span class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255, 255, 255, .05)"></span>
+        <div class="container position-relative zindex-5 text-center my-xl-3 py-1 py-md-4 py-lg-5">
+          <p class="lead text-light opacity-70 mb-3">Ready to get started?</p>
+          <h2 class="h1 text-light pb-3 pb-lg-0 mb-lg-5">Launch Your Project with Us</h2>
+          <a href="{%url 'slickapp:contactus'%}" class="btn btn-primary shadow-primary btn-lg">Contact Us</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Back to top button -->
+    <a href="#top" class="btn-scroll-top" data-scroll>
+      <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+      <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+    </a>
+
+    {% endblock %}

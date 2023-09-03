@@ -1,0 +1,681 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Digital-marketing{% endblock %}
+{% block content %} 
+
+    <!-- Page loading styles -->
+    <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .dark-mode .page-loading {
+        background-color: #0b0f19;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
+      .dark-mode .page-loading-inner > span {
+        color: #fff;
+        opacity: .6;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #b4b7c9;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      .dark-mode .page-spinner {
+        border-color: rgba(255,255,255,.4);
+        border-right-color: transparent;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== null && mode === 'dark') {
+        root.classList.add('dark-mode');
+      } else {
+        root.classList.remove('dark-mode');
+      }
+    </script>
+
+    <!-- Page loading scripts -->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 1000);
+        };
+      })();
+    </script>
+
+      <!-- Hero -->
+      <section class="pt-lg-4 mt-lg-3">
+        <div class="position-relative overflow-hidden">
+  
+          <!-- Image -->
+          <div class="container-fluid position-relative position-lg-absolute top-0 start-0 h-100">
+            <div class="row h-100 me-n4 me-n2">
+              <div class="col-lg-7 position-relative">
+                <div class="d-none d-sm-block d-lg-none" style="height: 400px;"></div>
+                <div class="d-sm-none" style="height: 300px;"></div>
+                <div class="jarallax position-absolute top-0 start-0 w-100 h-100 rounded-3 rounded-start-0 overflow-hidden" data-jarallax data-speed="0.3">
+                  <div class="jarallax-img" style="background-image: url(/static/assets/img/landing/financial/hero-img.jpg);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container position-relative zindex-5 pt-lg-5 px-0 px-lg-3">
+            <div class="row pt-lg-5 mx-n4 mx-lg-n3">
+              <div class="col-xl-6 col-lg-7 offset-lg-5 offset-xl-6 pb-5">
+  
+                <!-- Card -->
+                <div class="container bg-dark border-light overflow-hidden py-4 px-2 p-sm-4">
+                  <span class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255,255,255,.05);"></span>
+                  <div class="card-body position-relative zindex-5">
+                    <p class="fs-xl fw-bold text-primary text-uppercase mb-3">Power your business</p>
+                    <h1 class="display-5 text-light pb-3 mb-3">Community Recruitment</h1>
+                    <p class="fs-lg text-light opacity-70 mb-5">Helping our clients meet their financial needs for more than 10 years. We offer you  the full spectrum of global financial services.</p>
+                    <div class="d-flex flex-column flex-sm-row">
+                      <a href="#" class="btn btn-primary shadow-primary btn-lg mb-3 mb-sm-0 me-sm-4">Get started</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Services (Turns into carousel on narrow screens) -->
+      <section class="container py-5 mt-md-3 my-lg-5">
+        <h2 class="h1 pt-xl-2 pb-4 mb-2 mb-lg-3">Our Services</h2>
+        <div class="swiper" data-swiper-options='{
+          "slidesPerView": 1,
+          "spaceBetween": 24,
+          "autoHeight": true,
+          "pagination": {
+            "el": ".swiper-pagination",
+            "clickable": true
+          },
+          "breakpoints": {
+            "500": {
+              "slidesPerView": 2
+            },
+            "991": {
+              "slidesPerView": 3
+            }
+          }
+        }'>
+          <div class="swiper-wrapper">
+
+            <!-- Item -->
+            <div class="swiper-slide">
+              <a href="#"><img src="{% static 'assets/img/landing/financial/services/01.jpg' %}" class="rounded-3" alt="Image"></a>
+              <div class="pt-4">
+                <h3 class="h4">UX/UI plan</h3>
+                <ul class="list-unstyled">
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Ut auctor egestas leo arcu
+                  </li>
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Adipiscing velit enim nec id etiam
+                  </li>
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Imperdiet quis suspendisse imperdiet
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide">
+              <a href="#"><img src="{% static 'assets/img/landing/financial/services/02.jpg' %}" class="rounded-3" alt="Image"></a>
+              <div class="pt-4">
+                <h3 class="h4">Platform enhancement</h3>
+                <ul class="list-unstyled">
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Quis euismod lacus, at consectetur porta
+                  </li>
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Dictumst enim lectus dis eget non metus cras
+                  </li>
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Risus volutpat tellus hendrerit nibh
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide">
+              <a href="#"><img src="{% static 'assets/img/landing/financial/services/03.jpg' %}" class="rounded-3" alt="Image"></a>
+              <div class="pt-4">
+                <h3 class="h4">SPA development</h3>
+                <ul class="list-unstyled">
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Sit scelerisque venenatis, at orci
+                  </li>
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Felis nascetur tempus nibh dictum tristique mus
+                  </li>
+                  <li class="d-flex align-items-center fs-sm mb-2">
+                    <i class="bx bx-check fs-xl text-primary me-2"></i>
+                    Consectetur neque vestibulum, vel ut fermentum
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination (bullets) -->
+          <div class="swiper-pagination position-relative d-lg-none mt-5"></div>
+        </div>
+      </section>
+
+
+      <!-- COVID banner -->
+      <section class="container">
+        <div class="card bg-white border-primary shadow-sm px-4 px-lg-0">
+          <div class="row align-items-center py-3">
+            <div class="col-xl-5 col-md-6 offset-lg-1 text-center text-md-start py-4 py-lg-5">
+              <h2 class="h1">Fastest Growing Industry</h2>
+              <h3 class="h4 text-primary">SLICK SERVICES group of specialists can assist you.</h3>
+              <p class="mb-4 mb-lg-5">Offering you an expansive scope of measurable strategies for your important bits of knowledge: custom revealing, basic, and crossed frequencies, head segment examination, or bunching.</p>
+            </div>
+            <div class="col-xl-6 col-lg-5 col-md-6">
+              <lottie-player class="mx-auto" src="{% static 'assets/json/animation-financial-landing.json' %}" background="transparent" speed="1" loop autoplay style="max-width: 416px;"></lottie-player>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Features (Icon boxes) -->
+      <section class="container py-5 my-2 my-md-4 my-lg-5">
+        <h2 class="h1 text-center pt-1 pt-xl-3 mb-lg-4">Why Us?</h2>
+        <div class="swiper mx-n2" data-swiper-options='{
+          "slidesPerView": 1,
+          "spaceBetween": 8,
+          "pagination": {
+            "el": ".swiper-pagination",
+            "clickable": true
+          },
+          "breakpoints": {
+            "500": {
+              "slidesPerView": 2
+            },
+            "800": {
+              "slidesPerView": 3
+            },
+            "1200": {
+              "slidesPerView": 4
+            }
+          }
+        }'>
+          <div class="swiper-wrapper">
+
+            <!-- Item -->
+            <div class="swiper-slide h-auto py-3">
+              <div class="card h-100 card-body card-hover mx-2">
+                <i class="bx bx-rocket display-5 fw-normal card-icon" style="color: #b4b7c9;"></i>
+                <h3 class="h5 pt-3 pb-1 mb-2">Innovative Solutions</h3>
+                <p class="mb-0" style="text-align: justify;">Massa enim libero dictumst consectetur in convallis. Lobortis cursus mi a magna ullamcorper consectetur.</p>
+              </div>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide h-auto py-3">
+              <div class="card h-100 card-body card-hover mx-2">
+                <i class="bx bx-like display-5 fw-normal card-icon" style="color: #b4b7c9;"></i>
+                <h3 class="h5 pt-3 pb-1 mb-2">Success Guarantee</h3>
+                <p class="mb-0" style="text-align: justify;">At ultricies id non quisque integer eget velit. Facilisis enim malesuada metus, risus amet ultricies. Magna aliquam id nunc.</p>
+              </div>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide h-auto py-3">
+              <div class="card h-100 card-body card-hover mx-2">
+                <i class="bx bx-time-five display-5 fw-normal card-icon" style="color: #b4b7c9;"></i>
+                <h3 class="h5 pt-3 pb-1 mb-2">On Time Service</h3>
+                <p class="mb-0" style="text-align: justify;">Nisi augue at ridiculus odio ullamcorper in id. In bibendum diam nunc dignissim magna morbi mattis enim.</p>
+              </div>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide h-auto py-3">
+              <div class="card h-100 card-body card-hover mx-2">
+                <i class="bx bx-group display-5 fw-normal card-icon" style="color: #b4b7c9;"></i>
+                <h3 class="h5 pt-3 pb-1 mb-2">Professional Team</h3>
+                <p class="mb-0" style="text-align: justify;">Pellentesque rhoncus viverra vestibulum, purus purus quisque quisque sed. Cras vestibulum facilisis dictumst consequat.</p>
+              </div>
+            </div>
+          </div>
+      </section>
+
+
+      <!-- Industries (Slider) -->
+      <section class="container pt-xl-3 pb-5">
+        <h2 class="h1 text-center text-lg-start pb-4 mb-1 mb-lg-3">Industries We Serve</h2>
+        <div class="row pb-2 pb-md-4 pb-lg-5">
+          <div class="col-xl-4 col-lg-5 d-flex flex-column order-2 order-lg-1">
+
+            <!-- Swiper slider -->
+            <div class="swiper mx-0 mb-md-n2 mb-xxl-n3" data-swiper-options='{
+              "spaceBetween": 30,
+              "loop": true,
+              "tabs": true,
+              "autoHeight": true,
+              "navigation": {
+                "prevEl": "#prev-industry",
+                "nextEl": "#next-industry"
+              }
+            }'>
+              <div class="swiper-wrapper text-center text-lg-start">
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#industry-1">
+                  <h3 class="h4 mb-4">
+                    <a href="#" class="nav-link justify-content-center justify-content-lg-start fw-bold p-0">
+                      Transportation &amp; Logistics
+                      <i class="bx bx-right-arrow-alt text-primary fs-3 fw-normal ms-2 mt-1"></i>
+                    </a>
+                  </h3>
+                  <p style="text-align: justify;">Risus massa fames metus lectus diam maecenas dui. Nibh morbi id purus eget tellus diam, integer blandit. Ac condimentum a nisl sagittis, interdum. Et viverra maecenas quis cras sed gravida volutpat, cursus enim. Enim ut nulla netus porta lacus diam. Et enim ultrices nunc, nunc. In iaculis venenatis at sit.</p>
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#industry-2">
+                  <h3 class="h4 mb-4">
+                    <a href="#" class="nav-link justify-content-center justify-content-lg-start fw-bold p-0">
+                      Construction &amp; Real Estate
+                      <i class="bx bx-right-arrow-alt text-primary fs-3 fw-normal ms-2 mt-1"></i>
+                    </a>
+                  </h3>
+                  <p style="text-align: justify;">Nunc, amet et, et at habitant. Eget quis justo, metus at metus sapien. Urna quisque rutrum pharetra pulvinar vitae quam blandit non. Orci tempor cursus egestas quis orci at nisi maecenas. Enim in ultrices tortor, nibh quis sollicitudin tellus non maecenas. In libero ut semper nunc magna tortor.</p>
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#industry-3">
+                  <h3 class="h4 mb-4">
+                    <a href="#" class="nav-link justify-content-center justify-content-lg-start fw-bold p-0">
+                      Education
+                      <i class="bx bx-right-arrow-alt text-primary fs-3 fw-normal ms-2 mt-1"></i>
+                    </a>
+                  </h3>
+                  <p style="text-align: justify;">Vivamus nisl sit volutpat laoreet ligula et. Nunc, duis est justo, cras ipsum vulputate eget tellus augue. Amet, sagittis ut enim nisl commodo, pharetra. Sapien imperdiet tristique interdum aliquet varius vitae facilisis vel. Erat convallis eget elit eget iaculis. Morbi id facilisis ligula odio sed amet suspendisse duis aliquet. Justo quam convallis id sed.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slider controls (Prev / next buttons) -->
+            <div class="d-flex justify-content-center justify-content-lg-start mt-2 mt-lg-auto">
+              <button type="button" id="prev-industry" class="btn btn-prev btn-icon btn-sm me-2">
+                <i class="bx bx-chevron-left"></i>
+              </button>
+              <button type="button" id="next-industry" class="btn btn-next btn-icon btn-sm ms-2">
+                <i class="bx bx-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-7 offset-xl-1 order-1 order-lg-2 pt-lg-3 mt-lg-n5 mb-4 mb-lg-0">
+
+            <!-- Swiper tabs (Industry images) -->
+            <div class="swiper-tabs mt-lg-n5">
+
+              <!-- Industry 1 -->
+              <div id="industry-1" class="swiper-tab active">
+                <img src="{% static 'assets/img/landing/financial/industries/01.jpg' %}" class="rounded-3" alt="Image">
+              </div>
+
+              <!-- Industry 2 -->
+              <div id="industry-2" class="swiper-tab">
+                <img src="{% static 'assets/img/landing/financial/industries/02.jpg' %}" class="rounded-3" alt="Image">
+              </div>
+
+              <!-- Industry 3 -->
+              <div id="industry-3" class="swiper-tab">
+                <img src="{% static 'assets/img/landing/financial/industries/03.jpg' %}" class="rounded-3" alt="Image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Brands (Carousel) -->
+      <section class="container my-n2 my-md-0">
+        <div class="swiper mx-n2" data-swiper-options='{
+          "slidesPerView": 2,
+          "pagination": {
+            "el": ".swiper-pagination",
+            "clickable": true
+          },
+          "breakpoints": {
+            "500": {
+              "slidesPerView": 3,
+              "spaceBetween": 8
+            },
+            "650": {
+              "slidesPerView": 4,
+              "spaceBetween": 8
+            },
+            "900": {
+              "slidesPerView": 5,
+              "spaceBetween": 8
+            },
+            "1100": {
+              "slidesPerView": 6,
+              "spaceBetween": 8
+            }
+          }
+        }'>
+          <div class="swiper-wrapper">
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/01.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/02.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/03.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/04.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/05.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/06.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+          </div>
+
+          <!-- Pagination (bullets) -->
+          <div class="swiper-pagination position-relative pt-2 mt-4"></div>
+        </div>
+      </section>
+
+
+      <!-- Testimonials -->
+      <section class="container py-5 mb-2 mt-md-2 mb-md-4 mt-lg-4 mb-lg-5">
+        <div class="row pt-xl-1 pb-xl-3">
+          <div class="col-lg-3 col-md-4">
+            <h2 class="text-center text-md-start mx-auto mx-md-0 pt-md-2" style="max-width: 300px;">What Our <br class="d-none d-md-inline">Clients Say <br class="d-none d-md-inline">About Us:</h2>
+
+            <!-- Slider controls (Prev / next buttons) -->
+            <div class="d-flex justify-content-center justify-content-md-start pb-4 mb-2 pt-2 pt-md-4 mt-md-5">
+              <button type="button" id="prev-testimonial" class="btn btn-prev btn-icon btn-sm me-2">
+                <i class="bx bx-chevron-left"></i>
+              </button>
+              <button type="button" id="next-testimonial" class="btn btn-next btn-icon btn-sm ms-2">
+                <i class="bx bx-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-9 col-md-8">
+            <div class="swiper mx-n2" data-swiper-options='{
+              "slidesPerView": 1,
+              "spaceBetween": 8,
+              "loop": true,
+              "navigation": {
+                "prevEl": "#prev-testimonial",
+                "nextEl": "#next-testimonial"
+              },
+              "breakpoints": {
+                "500": {
+                  "slidesPerView": 2
+                },
+                "1000": {
+                  "slidesPerView": 2
+                },
+                "1200": {
+                  "slidesPerView": 3
+                }
+              }
+            }'>
+              <div class="swiper-wrapper">
+  
+                <!-- Item -->
+                <div class="swiper-slide h-auto pt-4">
+                  <figure class="d-flex flex-column h-100 px-2 px-sm-0 mb-0 mx-2">
+                    <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                      <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                        <i class="bx bxs-quote-left"></i>
+                      </span>
+                      <blockquote class="card-body pb-3 mb-0">
+                        <p class="mb-0" style="text-align: justify;">Id mollis consectetur congue egestas egestas suspendisse blandit justo. Tellus augue commodo id quis tempus etiam pulvinar at maecenas.</p>
+                      </blockquote>
+                      <div class="card-footer border-0 text-nowrap pt-0">
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bx-star text-muted opacity-75"></i>
+                        <i class="bx bx-star text-muted opacity-75"></i>
+                      </div>
+                    </div>
+                    <figcaption class="d-flex align-items-center ps-4 pt-4">
+                      <img src="{% static 'assets/img/avatar/03.jpg' %}" width="48" class="rounded-circle" alt="Fannie Summers">
+                      <div class="ps-3">
+                        <h6 class="fs-sm fw-semibold mb-0">Fannie Summers</h6>
+                        <span class="fs-xs text-muted">Medical Center patient</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+  
+                <!-- Item -->
+                <div class="swiper-slide h-auto pt-4">
+                  <figure class="d-flex flex-column h-100 px-2 px-sm-0 mb-0 mx-2">
+                    <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                      <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                        <i class="bx bxs-quote-left"></i>
+                      </span>
+                      <blockquote class="card-body pb-3 mb-0">
+                        <p class="mb-0" style="text-align: justify;">Phasellus luctus nisi id orci condimentum, at cursus nisl vestibulum. Orci varius natoque penatibus et magnis dis parturient montes commodo.</p>
+                      </blockquote>
+                      <div class="card-footer border-0 text-nowrap pt-0">
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                      </div>
+                    </div>
+                    <figcaption class="d-flex align-items-center ps-4 pt-4">
+                      <img src="{% static 'assets/img/avatar/02.jpg' %}" width="48" class="rounded-circle" alt="Robert Fox">
+                      <div class="ps-3">
+                        <h6 class="fs-sm fw-semibold mb-0">Robert Fox</h6>
+                        <span class="fs-xs text-muted">Medical Center patient</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+  
+                <!-- Item -->
+                <div class="swiper-slide h-auto pt-4">
+                  <figure class="d-flex flex-column h-100 px-2 px-sm-0 mb-0 mx-2">
+                    <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                      <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                        <i class="bx bxs-quote-left"></i>
+                      </span>
+                      <blockquote class="card-body pb-3 mb-0">
+                        <p class="mb-0" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum odio, bibendum ornare mi at, efficitur urna.</p>
+                      </blockquote>
+                      <div class="card-footer border-0 text-nowrap pt-0">
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bx-star text-muted opacity-75"></i>
+                      </div>
+                    </div>
+                    <figcaption class="d-flex align-items-center ps-4 pt-4">
+                      <img src="{% static 'assets/img/avatar/06.jpg' %}" width="48" class="rounded-circle" alt="Annette Black">
+                      <div class="ps-3">
+                        <h6 class="fs-sm fw-semibold mb-0">Annette Black</h6>
+                        <span class="fs-xs text-muted">Medical Center patient</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+  
+                <!-- Item -->
+                <div class="swiper-slide h-auto pt-4">
+                  <figure class="d-flex flex-column h-100 px-2 px-sm-0 mb-0 mx-2">
+                    <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                      <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                        <i class="bx bxs-quote-left"></i>
+                      </span>
+                      <blockquote class="card-body pb-3 mb-0">
+                        <p class="mb-0" style="text-align: justify;">Etiam augue ante, imperdiet et nunc sed, bibendum faucibus est. Suspendisse egestas facilisis erat eu eleifend.</p>
+                      </blockquote>
+                      <div class="card-footer border-0 text-nowrap pt-0">
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bx-star text-muted opacity-75"></i>
+                        <i class="bx bx-star text-muted opacity-75"></i>
+                      </div>
+                    </div>
+                    <figcaption class="d-flex align-items-center ps-4 pt-4">
+                      <img src="{% static 'assets/img/avatar/05.jpg' %}" width="48" class="rounded-circle" alt="Jerome Bell">
+                      <div class="ps-3">
+                        <h6 class="fs-sm fw-semibold mb-0">Jerome Bell</h6>
+                        <span class="fs-xs text-muted">Medical Center patient</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+  
+                <!-- Item -->
+                <div class="swiper-slide h-auto pt-4">
+                  <figure class="d-flex flex-column h-100 px-2 px-sm-0 mb-0 mx-2">
+                    <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                      <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                        <i class="bx bxs-quote-left"></i>
+                      </span>
+                      <blockquote class="card-body pb-3 mb-0">
+                        <p class="mb-0" style="text-align: justify;">Pellentesque finibus congue egestas egestas suspendisse blandit justo. Tellus augue commodo id quis tempus etiam pulvinar at maecenas.</p>
+                      </blockquote>
+                      <div class="card-footer border-0 text-nowrap pt-0">
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bx-star text-muted opacity-75"></i>
+                      </div>
+                    </div>
+                    <figcaption class="d-flex align-items-center ps-4 pt-4">
+                      <img src="{% static 'assets/img/avatar/01.jpg' %}" width="48" class="rounded-circle" alt="Albert Flores">
+                      <div class="ps-3">
+                        <h6 class="fs-sm fw-semibold mb-0">Albert Flores</h6>
+                        <span class="fs-xs text-muted">Medical Center patient</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- Back to top button -->
+    <a href="#top" class="btn-scroll-top" data-scroll>
+      <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+      <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+    </a>
+
+{% endblock %}

@@ -1,0 +1,650 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FAQ{% endblock %}
+{% block content %} 
+
+
+    <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .dark-mode .page-loading {
+        background-color: #0b0f19;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
+      .dark-mode .page-loading-inner > span {
+        color: #fff;
+        opacity: .6;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #b4b7c9;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      .dark-mode .page-spinner {
+        border-color: rgba(255,255,255,.4);
+        border-right-color: transparent;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== null && mode === 'dark') {
+        root.classList.add('dark-mode');
+      } else {
+        root.classList.remove('dark-mode');
+      }
+    </script>
+
+    <!-- Page loading scripts -->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 1000);
+        };
+      })();
+    </script>
+
+  
+      <!-- Hero -->
+      <section class="overflow-hidden pt-5" style="background: radial-gradient(116.18% 118% at 50% 100%, rgba(99, 102, 241, 0.1) 0%, rgba(218, 70, 239, 0.05) 41.83%, rgba(241, 244, 253, 0.07) 82.52%);">
+        <div class="container pt-3 pt-sm-4 pt-xl-5">
+          <div class="row pt-md-2 pt-lg-5">
+            <div class="col-md-5 d-flex flex-column mt-md-4 pt-5 pb-3 pb-sm-4 py-md-5">
+              <h1 class="display-4 text-center text-md-start mb-4">Mobile App Development</h1>
+              <p class="fs-lg text-center text-md-start pb-2 pb-md-3 mb-4 mb-lg-5">We offer you a new generation of the mobile banking.<br>Save, spend & manage money in your pocket.</p>
+              <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-start">
+                <a href="#" class="btn btn-dark btn-lg px-3 py-2 me-sm-3 me-lg-4 mb-3">
+                  <img src="{% static 'assets/img/market/appstore-light.svg' %}" class="light-mode-img" width="124" alt="App Store">
+                  <img src="{% static 'assets/img/market/appstore-dark.svg' %}" class="dark-mode-img" width="124" alt="App Store">
+                </a>
+                <a href="#" class="btn btn-dark btn-lg px-3 py-2 mb-3">
+                  <img src="{% static 'assets/img/market/googleplay-light.svg' %}" class="light-mode-img" width="139" alt="Google Play">
+                  <img src="{% static 'assets/img/market/googleplay-dark.svg' %}" class="dark-mode-img" width="139" alt="Google Play">
+                </a>
+              </div>
+              <div class="position-relative d-inline-flex align-items-center justify-content-center justify-content-md-start mt-auto pt-3 pt-md-4 pb-xl-2">
+                <a href="#features" class="btn btn-icon btn-light bg-white stretched-link rounded-circle me-3" data-scroll data-scroll-offset="120">
+                  <i class="bx bx-chevron-down"></i>
+                </a>
+                <span class="fs-sm">Discover more</span>
+              </div>     
+            </div>
+            <div class="col-md-7 align-self-end">
+              <div class="position-relative overflow-hidden mt-4 pb-3 pt-4 mx-auto me-md-0" style="max-width: 632px;">
+                <div class="ratio ratio-1x1"></div>
+                <img src="{% static 'assets/img/landing/app-showcase/phone-2.png' %}" class="rellax position-absolute top-0 start-0 zindex-2"  data-rellax-speed="1.6" data-disable-parallax-down="md" alt="Phone">
+                <img src="{% static 'assets/img/landing/app-showcase/phone-1.png' %}" class="rellax position-absolute top-0 start-0"  data-rellax-speed="2.8" data-disable-parallax-down="md" alt="Phone">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Brands (carousel on screens < 1100px) -->
+      <section class="container py-5 mt-md-2 mt-lg-4">
+        <div class="swiper pt-2 mx-n2" data-swiper-options='{
+          "slidesPerView": 2,
+          "pagination": {
+            "el": ".swiper-pagination",
+            "clickable": true
+          },
+          "breakpoints": {
+            "500": {
+              "slidesPerView": 3,
+              "spaceBetween": 8
+            },
+            "650": {
+              "slidesPerView": 4,
+              "spaceBetween": 8
+            },
+            "900": {
+              "slidesPerView": 5,
+              "spaceBetween": 8
+            },
+            "1100": {
+              "slidesPerView": 6,
+              "spaceBetween": 8
+            }
+          }
+        }'>
+          <div class="swiper-wrapper">
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/01.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/02.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/03.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/04.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/05.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+
+            <!-- Item -->
+            <div class="swiper-slide py-3">
+              <a href="#" class="card card-body card-hover px-2 mx-2">
+                <img src="{% static 'assets/img/brands/06.svg' %}" class="d-block mx-auto my-2" width="154" alt="Brand">
+              </a>
+            </div>
+          </div>
+
+          <!-- Pagination (bullets) -->
+          <div class="swiper-pagination position-relative pt-2 mt-4"></div>
+        </div>
+      </section>
+
+
+      <!-- Features -->
+      <section id="features" class="container pt-lg-2 pt-xl-3 pb-3 pb-xl-5 mt-n2 mt-sm-0 mb-2 mb-md-4 mb-lg-5">
+        <div class="row pb-xl-3">
+
+          <!-- Parallax gfx -->
+          <div class="col-lg-5 d-none d-lg-block">
+            <div class="position-relative" style="max-width: 348px;">
+              <img src="{% static 'assets/img/landing/app-showcase/features/phone(1).png' %}" alt="Phone">
+              <div class="rellax position-absolute top-0" data-rellax-vertical-scroll-axis="x" data-rellax-horizontal-speed="0.75" data-disable-parallax-down="lg" style="max-width: 348px; right: -2.75rem;">
+                <img src="{% static 'assets/img/landing/app-showcase/features/card(1).png' %}" alt="Card">
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature list -->
+          <div class="col-lg-7">
+            <h2 class="h1 text-center text-md-start mb-4">App Features</h2>
+            <p class="fs-lg text-muted text-center text-md-start mb-4 mb-xl-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat mollis egestas. Nam luctus facilisis ultrices. Pellentesque volutpat ligula est. Mattis fermentum, at nec lacus.</p>
+            <div class="row row-cols-1 row-cols-sm-2 pt-2 pt-sm-3 pt-xl-2">
+
+              <!-- Item -->
+              <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+                <div class="d-flex align-items-start pe-xl-3">
+                  <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                    <img src="{% static 'assets/img/landing/app-showcase/features/payments.svg' %}" alt="Icon">
+                  </div>
+                  <div class="ps-4 ps-sm-3 ps-md-4">
+                    <h3 class="h5 pb-1 mb-2">Easy Payments</h3>
+                    <p class="mb-0" style="text-align: justify;">Id mollis consectetur congue egestas egestas suspendisse blandit justo.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+                <div class="d-flex align-items-start ps-xl-3">
+                  <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                    <img src="{% static 'assets/img/landing/app-showcase/features/security.svg' %}" alt="Icon">
+                  </div>
+                  <div class="ps-4 ps-sm-3 ps-md-4">
+                    <h3 class="h5 pb-1 mb-2">Data Security</h3>
+                    <p class="mb-0" style="text-align: justify;">Augue pulvinar justo, fermentum fames aliquam accumsan vestibulum non.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+                <div class="d-flex align-items-start pe-xl-3">
+                  <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                    <img src="{% static 'assets/img/landing/app-showcase/features/statistics.svg' %}" alt="Icon">
+                  </div>
+                  <div class="ps-4 ps-sm-3 ps-md-4">
+                    <h3 class="h5 pb-1 mb-2">Cost Statistics</h3>
+                    <p class="mb-0" style="text-align: justify;">Mattis urna ultricies non amet, purus in auctor non. Odio vulputate ac nibh.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+                <div class="d-flex align-items-start ps-xl-3">
+                  <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                    <img src="{% static 'assets/img/landing/app-showcase/features/support.svg' %}" alt="Icon">
+                  </div>
+                  <div class="ps-4 ps-sm-3 ps-md-4">
+                    <h3 class="h5 pb-1 mb-2">Support 24/7</h3>
+                    <p class="mb-0" style="text-align: justify;">A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+                <div class="d-flex align-items-start pe-xl-3">
+                  <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                    <img src="{% static 'assets/img/landing/app-showcase/features/cashback.svg' %}" alt="Icon">
+                  </div>
+                  <div class="ps-4 ps-sm-3 ps-md-4">
+                    <h3 class="h5 pb-1 mb-2">Regular Cashback</h3>
+                    <p class="mb-0" style="text-align: justify;">Sit facilisis dolor arcu, fermentum vestibulum arcu elementum imperdiet eleifend.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+                <div class="d-flex align-items-start ps-xl-3">
+                  <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                    <img src="{% static 'assets/img/landing/app-showcase/features/happy.svg' %}" alt="Icon">
+                  </div>
+                  <div class="ps-4 ps-sm-3 ps-md-4">
+                    <h3 class="h5 pb-1 mb-2">Top Standards</h3>
+                    <p class="mb-0" style="text-align: justify;">Faucibus cursus maecenas lorem cursus nibh. Sociis sit risus id. Sit facilisis dolor arcu.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- How it works (Slider) -->
+      <section class="position-relative bg-secondary py-5">
+        <div class="container mt-3 pt-md-2 pt-lg-4 pb-2 pb-md-4 pb-lg-5">
+          <h2 class="h1 text-center pb-2 pb-md-0 mb-4 mb-md-5">How Does It Work?</h2>
+          <div class="position-relative mx-5">
+
+            <!-- Slider prev/next buttons -->
+            <button type="button" id="prev-screen" class="btn btn-prev btn-icon position-absolute top-50 start-0 ms-n5 translate-middle-y">
+              <i class="bx bx-chevron-left"></i>
+            </button>
+            <button type="button" id="next-screen" class="btn btn-next btn-icon position-absolute top-50 end-0 me-n5 translate-middle-y">
+              <i class="bx bx-chevron-right"></i>
+            </button>
+
+            <!-- Phone frame -->
+            <div class="position-absolute top-0 start-50 translate-middle-x h-100 w-100 w-md-33 zindex-5">
+              <div class="d-flex bg-repeat-0 bg-size-cover w-100 h-100 mx-auto" style="max-width: 328px; background-image: url(/static/assets/img/landing/app-showcase/screens/phone-frame.png);"></div>
+            </div>
+
+            <!-- Phone screen -->
+            <div class="position-absolute top-0 start-50 translate-middle-x h-100 w-100 w-md-33">
+              <div class="d-flex bg-repeat-0 bg-size-cover w-100 h-100 mx-auto" style="max-width: 328px; background-image: url(/static/assets/img/landing/app-showcase/screens/phone-screen.png);"></div>
+            </div>
+
+            <!-- Swiper slider -->
+            <div class="swiper mobile-app-slider" data-swiper-options='{
+              "slidesPerView": 1,
+              "centeredSlides": true,
+              "loop": true,
+              "tabs": true,
+              "pagination": {
+                "el": "#swiper-progress",
+                "type": "progressbar"
+              },
+              "navigation": {
+                "prevEl": "#prev-screen",
+                "nextEl": "#next-screen"
+              },
+              "breakpoints": {
+                "768": { "slidesPerView": 3 }
+              }
+            }'>
+              <div class="swiper-wrapper">
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#text-1">
+                  <img src="{% static 'assets/img/landing/app-showcase/screens/app-s1.png' %}" class="d-block mx-auto" width="328" alt="Screen">
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#text-2">
+                  <img src="{% static 'assets/img/landing/app-showcase/screens/app-s2.png' %}" class="d-block mx-auto" width="328" alt="Screen">
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#text-3">
+                  <img src="{% static 'assets/img/landing/app-showcase/screens/app-s3.png' %}" class="d-block mx-auto" width="328" alt="Screen">
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide" data-swiper-tab="#text-4">
+                  <img src="{% static 'assets/img/landing/app-showcase/screens/app-s4.png' %}" class="d-block mx-auto" width="328" alt="Screen">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Swiper tabs (Description text) -->
+          <div class="row justify-content-center pt-4 mt-2 mt-md-3">
+            <div class="swiper-tabs col-xl-6 col-lg-7 col-md-8 text-center">
+
+              <!-- Text 1 -->
+              <div id="text-1" class="swiper-tab active">
+                <h3 class="h4 pb-1 mb-2">Step 1. Advanced budget management</h3>
+                <p class="mb-0" style="text-align: justify;">Consequat ut cras nisl, enim purus in facilisi. Ipsum amet, lectus malesuada risus sollicitudin accumsan. Id sem elit vel vel lectus risus senectus.</p>
+              </div>
+
+              <!-- Text 2 -->
+              <div id="text-2" class="swiper-tab">
+                <h3 class="h4 pb-1 mb-2">Step 2. Latest transaction history</h3>
+                <p class="mb-0" style="text-align: justify;">Enim, et amet praesent pharetra. Mi non ante hendrerit amet sed. Arcu sociis tristique quisque hac in consectetur condimentum.</p>
+              </div>
+
+              <!-- Text 3 -->
+              <div id="text-3" class="swiper-tab">
+                <h3 class="h4 pb-1 mb-2">Step 3. Transfers to people from your contact list</h3>
+                <p class="mb-0" style="text-align: justify;">Proin volutpat mollis egestas. Nam luctus facilisis ultrices. Pellentesque volutpat ligula est. Mattis fermentum, at nec lacus.</p>
+              </div>
+
+              <!-- Text 4 -->
+              <div id="text-4" class="swiper-tab">
+                <h3 class="h4 pb-1 mb-2">Step 4. Card-to-card transfers</h3>
+                <p class="mb-0" style="text-align: justify;">A sed lorem felis, pulvinar pharetra. At tempus, vel sed faucibus amet sit elementum sed erat. Id nunc blandit pharetra facilisis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider progress -->
+        <div id="swiper-progress" class="swiper-pagination bottom-0" style="top: auto;"></div>
+      </section>
+
+
+      <!-- Fetures -->
+      <section class="container pt-5 pb-2 pb-md-3 py-lg-5">
+        <div class="row align-items-center my-3 py-md-3 py-lg-5">
+          <div class="col-md-6 col-xl-5 offset-lg-1 offset-xl-2 order-md-2 mb-2 mb-md-0 pb-4 pb-md-0">
+            <div class="position-relative mx-auto mx-md-0" style="max-width: 469px;">
+              <img src="{% static 'assets/img/landing/app-showcase/features/screen101.png' %}" class="rellax d-block" alt="Screen" data-rellax-percentage="0.5" data-rellax-speed="-0.5" data-disable-parallax-down="md">
+              <div class="rellax position-absolute top-0 end-0 w-100 h-100" data-rellax-percentage="0.5" data-rellax-speed="0.75" data-disable-parallax-down="md">
+                <img src="{% static 'assets/img/landing/app-showcase/features/screen202.png' %}" alt="Screen">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5 col-xl-4 offset-xl-1 order-md-1 pb-md-4">
+            <h2 class="pb-3">Make your money transfer simple and clear</h2>
+            <ul class="list-unstyled pb-3 mb-3">
+              <li class="d-flex align-items-center mb-2">
+                <i class="bx bx-check-circle fs-xl text-primary me-2"></i>
+                Banking transactions are free for you
+              </li>
+              <li class="d-flex align-items-center mb-2">
+                <i class="bx bx-check-circle fs-xl text-primary me-2"></i>
+                No monthly cash commission
+              </li>
+              <li class="d-flex align-items-center mb-2">
+                <i class="bx bx-check-circle fs-xl text-primary me-2"></i>
+                Manage payments and transactions online
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row align-items-center mt-2 mt-md-0 pt-5 pt-md-4 pt-lg-0 pb-md-3 pb-lg-5">
+          <div class="col-md-6 col-lg-5 offset-xl-1 mb-2 mb-md-0 pb-4 pb-md-0">
+            <div class="position-relative mx-auto mx-md-0" style="max-width: 462px;">
+              <img src="{% static 'assets/img/landing/app-showcase/features/screen203(1).png' %}" class="rellax d-block" alt="Screen" data-rellax-percentage="0.5" data-rellax-speed="-0.5" data-disable-parallax-down="md">
+              <div class="rellax position-absolute top-0 end-0 w-100 h-100 me-md-n3" data-rellax-percentage="0.5" data-rellax-speed="0.75" data-disable-parallax-down="md">
+                <img src="{% static 'assets/img/landing/app-showcase/features/screen204(1).png' %}" alt="Screen">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-5 offset-lg-1">
+            <h2 class="pb-3">Receive payment from international bank details</h2>
+            <div class="row row-cols-1 row-cols-sm-2 text-start pb-3">
+              <div class="col pb-4">
+                <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                  <img src="{% static 'assets/img/landing/app-showcase/features/payments.svg' %}" alt="Easy Payments">
+                </div>
+                <p class="mb-0" style="text-align: justify;">Manage your payments online. Mollis congue egestas egestas fermentum fames.</p>
+              </div>
+              <div class="col pb-4">
+                <div class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3">
+                  <img src="{% static 'assets/img/landing/app-showcase/features/cashback.svg' %}" alt="Regular Cashback">
+                </div>
+                <p class="mb-0" style="text-align: justify;">A elementur and imperdiet enim, pretium etiam facilisi aenean quam mauris.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Extra spacing for dark mode only -->
+        <div class="pt-5 d-none d-dark-mode-block"></div>
+      </section>
+
+
+      <!-- Testimonials -->
+      <section class="py-5 mb-md-2" style="background: radial-gradient(116.18% 118% at 50% 100%, rgba(99, 102, 241, 0.1) 0%, rgba(218, 70, 239, 0.05) 41.83%, rgba(241, 244, 253, 0.07) 82.52%);">
+        <div class="container py-lg-4">
+          <div class="row py-md-3">
+            <div class="col-xl-3 col-lg-4 pt-2">
+              <h2 class="h1 text-center text-lg-start pb-2">Clients are Loving Our App</h2>
+              
+              <!-- Slider prev/next buttons -->
+              <div class="d-flex justify-content-center justify-content-lg-start pt-lg-5">
+                <button type="button" id="prev-review" class="btn btn-prev btn-icon btn-sm me-3">
+                  <i class="bx bx-chevron-left"></i>
+                </button>
+                <button type="button" id="next-review" class="btn btn-next btn-icon btn-sm">
+                  <i class="bx bx-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-8 offset-xl-1 pt-4 mt-2 mt-md-3 mt-lg-0 pt-lg-0">
+              <div class="px-2 px-sm-0">
+                <div class="swiper mx-n2" data-swiper-options='{
+                  "slidesPerView": 1,
+                  "spaceBetween": 8,
+                  "navigation": {
+                    "prevEl": "#prev-review",
+                    "nextEl": "#next-review"
+                  },
+                  "loop": true,
+                  "breakpoints": {
+                    "600": { "slidesPerView": 2 }
+                  }
+                }'>
+                  <div class="swiper-wrapper">
+      
+                    <!-- Item -->
+                    <div class="swiper-slide h-auto pt-4 pb-3 px-2">
+                      <div class="d-flex flex-column h-100 px-2 px-sm-0 mb-0">
+                        <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                          <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                            <i class="bx bxs-quote-left"></i>
+                          </span>
+                          <blockquote class="card-body pb-4 mb-0">
+                            <div class="text-nowrap pt-1 mb-3">
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bx-star text-muted opacity-75"></i>
+                              <i class="bx bx-star text-muted opacity-75"></i>
+                            </div>
+                            <p class="fs-lg mb-0" style="text-align: justify;">Sit pretium aliquam tempor, orci dolor sed maecenas rutrum sagittis. Laoreet posuere rhoncus, egestas lacus, egestas justo aliquam vel. Nisi vitae lectus hac hendrerit. Montes justo turpis sit amet.</p>
+                          </blockquote>
+                          <div class="card-footer d-flex align-items-center border-0 pt-0">
+                            <img src="{% static 'assets/img/avatar/42.png' %}" width="48" class="rounded-circle ms-n1" alt="Fannie Summers">
+                            <div class="ps-2 ms-1">
+                              <h6 class="fs-base fw-semibold mb-0">Fannie Summers</h6>
+                              <span class="fs-sm text-muted">Designer</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <!-- Item -->
+                    <div class="swiper-slide h-auto pb-3 px-2 pt-4">
+                      <div class="d-flex flex-column h-100 px-2 px-sm-0 mb-0">
+                        <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                          <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                            <i class="bx bxs-quote-left"></i>
+                          </span>
+                          <blockquote class="card-body pb-4 mb-0">
+                            <div class="text-nowrap pt-1 mb-3">
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                            </div>
+                            <p class="fs-lg mb-0">Nunc senectus leo vel venenatis accumsan vestibulum sollicitudin amet porttitor. Nisl bibendum nulla tincidunt eu enim ornare dictumst sit amet. Dictum pretium dolor tincidunt egestas eget nunc.</p>
+                          </blockquote>
+                          <div class="card-footer d-flex align-items-center border-0 pt-0">
+                            <img src="{% static 'assets/img/avatar/43.png' %}" width="48" class="rounded-circle ms-n1" alt="Robert Fox">
+                            <div class="ps-2 ms-1">
+                              <h6 class="fs-base fw-semibold mb-0">Robert Fox</h6>
+                              <span class="fs-sm text-muted">QA Engineer</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <!-- Item -->
+                    <div class="swiper-slide h-auto pb-3 px-2 pt-4">
+                      <div class="d-flex flex-column h-100 px-2 px-sm-0 mb-0">
+                        <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                          <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                            <i class="bx bxs-quote-left"></i>
+                          </span>
+                          <blockquote class="card-body pb-4 mb-0">
+                            <div class="text-nowrap pt-1 mb-3">
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bx-star text-muted opacity-75"></i>
+                            </div>
+                            <p class="fs-lg mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum odio, bibendum ornare mi at, efficitur urna. Sit pretium aliquam tempor, orci dolor sed maecenas.</p>
+                          </blockquote>
+                          <div class="card-footer d-flex align-items-center border-0 pt-0">
+                            <img src="{% static 'assets/img/avatar/44.png' %}" width="48" class="rounded-circle ms-n1" alt="Annette Black">
+                            <div class="ps-2 ms-1">
+                              <h6 class="fs-base fw-semibold mb-0">Annette Black</h6>
+                              <span class="fs-sm text-muted">Project Manager</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <!-- Item -->
+                    <div class="swiper-slide h-auto pb-3 px-2 pt-4">
+                      <div class="d-flex flex-column h-100 px-2 px-sm-0 mb-0">
+                        <div class="card h-100 position-relative border-0 shadow-sm pt-4">
+                          <span class="btn btn-icon btn-primary shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+                            <i class="bx bxs-quote-left"></i>
+                          </span>
+                          <blockquote class="card-body pb-4 mb-0">
+                            <div class="text-nowrap pt-1 mb-3">
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                            </div>
+                            <p class="fs-lg mb-0">Etiam augue ante, imperdiet et nunc sed, bibendum faucibus est. Suspendisse egestas facilisis erat eu eleifend. Pellentesque finibus congue egestas egestas suspendisse blandit justo.</p>
+                          </blockquote>
+                          <div class="card-footer d-flex align-items-center border-0 pt-0">
+                            <img src="{% static 'assets/img/avatar/45.png' %}" width="48" class="rounded-circle ms-n1" alt="Jerome Bell">
+                            <div class="ps-2 ms-1">
+                              <h6 class="fs-base fw-semibold mb-0">Jerome Bell</h6>
+                              <span class="fs-sm text-muted">Developer</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- Back to top button -->
+    <a href="#top" class="btn-scroll-top" data-scroll>
+      <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+      <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+    </a>
+
+    {% endblock %}

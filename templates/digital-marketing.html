@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Community-Recruitment{% endblock %}
+{% block content %}
+
+    <!-- Page loading styles -->
+    <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .dark-mode .page-loading {
+        background-color: #0b0f19;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
+      .dark-mode .page-loading-inner > span {
+        color: #fff;
+        opacity: .6;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #b4b7c9;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      .dark-mode .page-spinner {
+        border-color: rgba(255,255,255,.4);
+        border-right-color: transparent;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== null && mode === 'dark') {
+        root.classList.add('dark-mode');
+      } else {
+        root.classList.remove('dark-mode');
+      }
+    </script>
+
+    <!-- Page loading scripts -->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 1000);
+        };
+      })();
+    </script>
+
+      <!-- Video + Title split section -->
+      <section class="container-fluid position-relative px-0 pt-5 mt-3 mt-lg-4">
+        <div class="row g-0">
+          <div class="col-xl-7 col-lg-6 pe-lg-5">
+            <div class="d-flex h-100 pe-xl-4">
+              <video class="w-100" autoplay muted loop style="object-fit: cover;">
+                <source src="{% static 'assets/img/landing/conference/hero-video.mp4' %}" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div class="col-xl-5 col-lg-6 position-relative py-5">
+            <img src="{% static 'assets/img/landing/conference/hero-bg.png' %}" class="position-absolute top-50 translate-middle-y ms-lg-n4" width="866" alt="Background shapes">
+            <div class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0" style="max-width: 530px;">
+              <h1 class="display-1 pb-lg-3 mb-3">Digital Marketing</h1>
+              <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
+                <a href="#" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3">Get started</a>
+              </div>
+              <!-- <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5 mt-xxl-5">
+                <div class="d-flex me-3">
+                  <div class="d-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 52px; height: 52px;">
+                    <img src="{% static 'assets/img/avatar/08.jpg' %}" class="rounded-circle" width="48" alt="Avatar">
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center bg-light rounded-circle ms-n3" style="width: 52px; height: 52px;">
+                    <img src="{% static 'assets/img/avatar/40.jpg' %}" class="rounded-circle" width="48" alt="Avatar">
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center bg-light rounded-circle ms-n3" style="width: 52px; height: 52px;">
+                    <img src="{% static 'assets/img/avatar/09.jpg' %}" class="rounded-circle" width="48" alt="Avatar">
+                  </div>
+                </div>
+                <span class="fs-sm"><span class="text-primary fw-semibold">400+</span> attendees are already with us</span>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="position-absolute d-none d-lg-block bottom-0 start-0 w-100 zindex-5 pb-xxl-5">
+          <div class="container pb-4 mb-3 mb-xxl-0">
+            <a href="#speakers" class="d-table text-light opacity-80 text-decoration-none w-auto py-4" data-scroll data-scroll-offset="70">
+              <span class="d-flex align-items-center">
+                Scroll for more
+                <i class="bx bx-down-arrow-circle fs-3 ms-2"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <br>
+
+      <div class="container">
+        <h3>Introduction:</h3>
+        <ul>
+          <li><p class="mb-0">Start with an engaging headline that captures the essence of digital marketing.</p></li>
+          <li><p class="mb-0">Begin with a brief introduction that highlights the importance of digital marketing in today's business landscape.</p></li>
+          <li><p class="mb-0">Emphasize how digital marketing can help businesses reach their target audience, increase brand visibility, and drive conversions.</p></li>
+        </ul>
+        <h3>Services Offered:</h3>
+        <ul>
+          <li><p class="mb-0">Outline the specific digital marketing services you provide, such as Search Engine Optimization (SEO), Pay-Per-Click (PPC) advertising, Social Media Marketing, Content Marketing, Email Marketing, etc.</p></li>
+          <li><p class="mb-0">Start with an engaging headline that captures the essence of digital marketing.</p></li>
+          <li><p class="mb-0">Briefly explain each service and its benefits for businesses.</p></li>
+        </ul>
+        <h3>Approach and Methodology:</h3>
+        <ul>
+          <li><p class="mb-0">Describe your approach to digital marketing and how you tailor strategies to meet the unique needs of each client.</p></li>
+          <li><p class="mb-0">Highlight your use of data-driven insights and analytics to make informed decisions.</p></li>
+          <li><p class="mb-0">Explain how you stay up-to-date with the latest industry trends and algorithms to deliver effective results.</p></li>
+        </ul>
+        <h3>Results and Success Stories:</h3>
+        <ul>
+          <li><p class="mb-0">Share success stories and case studies that demonstrate the positive outcomes your digital marketing efforts have achieved for clients.</p></li>
+          <li><p class="mb-0">Highlight specific metrics, such as increased website traffic, higher search engine rankings, improved conversion rates, or increased social media engagement.</p></li>
+          <li><p class="mb-0">Include testimonials from satisfied clients, showcasing their experiences and the impact your services had on their businesses.</p></li>
+        </ul>
+        <h3>Competitive Advantage:</h3>
+        <ul>
+          <li><p class="mb-0">Showcase what sets your digital marketing services apart from competitors.</p></li>
+          <li><p class="mb-0">>Highlight any unique expertise, certifications, or industry affiliations your team possesses.</p></li>
+          <li><p class="mb-0">Emphasize your commitment to continuous learning and professional development to stay ahead in the ever-evolving digital marketing landscape.</p></li>
+        </ul>
+        <h3>Call-to-Action:</h3>
+        <ul>
+          <li><p class="mb-0">Encourage visitors to take the next step by including a clear call-to-action (CTA) at the end of the section.</p></li>
+          <li><p class="mb-0">This could be a "Contact Us" button, a form to request a consultation, or a link to a pricing page.</p></li>
+          <li><p class="mb-0">Remember to keep the content concise, engaging, and customer-focused. Use relevant keywords to optimize your content for search engines and make it easy for visitors to navigate through your website.</p></li>
+        </ul>
+      </div>
+
+      <!-- Tickets -->
+      <section class="container pb-5 mb-2 mb-md-4 mb-lg-5 mt-n3 mt-lg-0">
+        <div class="row pt-xl-2 pb-md-3" style="margin-top: 8%;">
+          <div class="col-lg-5 mb-4 mb-lg-0">
+            <h2 class="h1 text-center text-sm-start mb-4">The Biggest Digital Event in 2022</h2>
+            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" style="text-align: justify;">Et, morbi at sagittis vehicula rutrum. Lacus tortor, quam arcu mi et, at lectus leo nunc. Mattis cras auctor vel pharetra tempor. Rhoncus pellentesque habitant ac tempor. At aliquam euismod est in praesent ornare etiam id. Faucibus libero sit vehicula sed condimentum. Vitae in nam porttitor rutrum sed aliquam donec sed. Sapien facilisi lectus.</p>
+          </div>
+          <div class="col-xl-6 col-lg-7 offset-xl-1 position-relative">
+
+            <!-- Ticket card -->
+            <div class="position-relative">
+              <div class="position-relative overflow-hidden bg-gradient-primary rounded-3 zindex-5 py-5 px-4 p-sm-5">
+                <span class="position-absolute top-50 start-0 translate-middle bg-light rounded-circle p-4"></span>
+                <span class="position-absolute top-0 start-0 w-100 h-100 bg-repeat-0 bg-position-center-end bg-size-cover" style="background-image: url(assets/img/landing/conference/price-card-pattern.png);"></span>
+                <div class="px-md-4 position-relative zindex-5">
+                  <div class="d-sm-flex align-items-start justify-content-between">
+                    <div class="text-center text-sm-start me-sm-4">
+                      <h3 class="h1 text-light">Digital Conference</h3>
+                    </div>
+                    <div class="d-table bg-white rounded-3 p-4 flex-shrink-0 mx-auto mx-sm-0">
+                      <img src="{% static 'assets/img/landing/conference/qr.png' %}" width="102" alt="QR Code">
+                    </div>
+                  </div>
+                </div>
+                <span class="position-absolute top-50 end-0 translate-middle-y bg-light rounded-circle p-4 me-n4"></span>
+              </div>
+              <span class="position-absolute bg-gradient-primary opacity-60 bottom-0 mb-n2 d-dark-mode-none" style="left: 1.5rem; width: calc(100% - 3rem); height: 5rem; filter: blur(.625rem);"></span>
+            </div>
+
+            <!-- Arrow -->
+            <div class="position-absolute bottom-0 text-primary d-none d-lg-block ms-xl-n5 mb-lg-5 mb-xl-4 pb-3">
+              <div class="ms-xl-n4">
+                <svg width="95" height="100" viewBox="0 0 95 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M78.8361 25.0939C91.1514 40.6379 81.8802 63.3086 61.7212 64.3539C60.7119 64.447 59.5832 64.3477 58.6105 64.2848C58.7669 50.9978 52.4534 36.5276 41.6324 32.847C31.8669 29.5776 26.5235 39.0204 30.5663 47.0383C35.4083 56.5589 43.9198 64.4699 54.2628 67.3808C53.4517 75.7446 49.4008 83.1867 40.4191 85.693C25.2817 89.8859 9.48935 75.832 7.25928 61.4938C7.12064 59.981 4.79 60.0942 4.92864 61.607C5.83171 80.8987 28.9103 96.1621 46.7792 87.3441C53.6867 83.8595 57.3887 76.5003 58.3558 68.173C69.2212 69.5612 79.5859 63.2659 85.1681 54.2081C91.5844 43.7002 88.5763 31.9764 81.257 23.1926C80.1091 21.7727 77.8441 23.7109 78.8361 25.0939ZM39.1221 52.6568C36.2753 49.3596 33.1435 45.1733 32.7276 40.635C32.275 36.2527 38.2211 36.1619 40.7539 36.5897C43.9108 37.163 46.2067 40.0025 47.9151 42.5401C51.7632 47.8805 54.3289 55.8821 54.5172 63.4926C48.5423 61.6026 43.3094 57.2542 39.1221 52.6568Z" fill="currentColor"/><path d="M75.1096 15.0312C74.0848 19.3973 73.3354 23.9923 73.4392 28.4577C73.5047 30.2821 76.0279 30.0497 76.1186 28.2613C76.2997 24.6849 77.2976 21.1349 78.2588 17.7408C80.2501 18.3708 82.3978 19.0372 84.3528 19.8231C85.8397 20.4997 87.9238 22.1382 89.7035 21.5672C90.5937 21.2818 90.7767 20.5022 90.6474 19.6495C90.3065 17.596 87.0302 16.8302 85.3872 16.1172C82.6885 14.993 80.073 14.2174 77.2645 13.561C76.3289 13.3423 75.3292 14.0956 75.1096 15.0312Z" fill="currentColor"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Highlights (Video showreel) -->
+      <section class="bg-secondary py-5">
+        <div class="container py-2 py-md-4 py-lg-5">
+          <h3 class="h1 text-center mb-lg-4">Previous Year Highlights</h3>
+          <p class="fs-lg text-muted text-center mb-4 mb-lg-5">Watch the short video and check out how the last Digital Conference unfolded.</p>
+          <div class="position-relative overflow-hidden rounded-3 mb-4 mb-lg-5">
+            <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-35"></span>
+            <img src="{% static 'assets/img/landing/conference/video-cover.jpg' %}" alt="Video cover">
+            <div class="position-absolute top-0 start-0 w-100 h-100 zindex-5 d-flex align-items-center justify-content-center">
+              <a href="https://www.youtube.com/watch?v=LBfAnFX15nc" class="btn btn-video btn-icon bg-white btn-xl stretched-link" data-bs-toggle="video">
+                <i class="bx bx-play"></i>
+              </a>
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 pt-2 pt-md-3 pt-lg-2">
+            <div class="col">
+              <div class="d-flex align-items-center">
+                <div class="display-4 text-primary">20+</div>
+                <p class="ps-3 mb-0">Hours of digital content,workshops &amp; side-events</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="d-flex align-items-center">
+                <div class="display-4 text-primary">3K+</div>
+                <p class="ps-3 mb-0">Industry experts, students, and enthusiasts</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="d-flex align-items-center">
+                <div class="display-4 text-primary">18</div>
+                <p class="ps-3 mb-0">Digital experts, instructors and panelists for our side-events</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials slider -->
+      <section class="bg-secondary py-5">
+        <div class="container py-2 py-md-4 py-lg-5">
+          <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">What Our Client Say</h2>
+          <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;">
+
+            <!-- Prev button -->
+            <button type="button" id="prev" class="btn btn-prev btn-icon btn-sm position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
+              <i class="bx bx-chevron-left"></i>
+            </button>
+
+            <!-- Next button -->
+            <button type="button" id="next" class="btn btn-next btn-icon btn-sm position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
+              <i class="bx bx-chevron-right"></i>
+            </button>
+
+            <!-- Slider -->
+            <div class="swiper swiper-nav-onhover pt-1 mx-md-2" data-swiper-options='{
+              "spaceBetween": 12,
+              "loop": true,
+              "pagination": {
+                "el": ".swiper-pagination",
+                "clickable": true
+              },
+              "navigation": {
+                "prevEl": "#prev",
+                "nextEl": "#next"
+              }
+            }'>
+              <div class="swiper-wrapper pt-4 pb-3">
+
+                <!-- Item -->
+                <div class="swiper-slide h-auto px-2">
+                  <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                      <i class="bx bxs-quote-left"></i>
+                    </span>
+                    <blockquote class="card-body mt-2 mb-2">
+                      <p class="fs-lg mb-0" style="text-align: justify;">Dolor, a eget elementum, integer nulla volutpat, nunc, sit. Quam iaculis varius mauris magna sem. Egestas sed sed suscipit dolor faucibus dui imperdiet at eget. Tincidunt imperdiet quis hendrerit aliquam feugiat neque cras sed. Dictum quam integer volutpat tellus, faucibus platea. Pulvinar turpis proin faucibus at mauris. Sagittis gravida vitae porta enim, nulla arcu fermentum massa lobortis facilisis.</p>
+                    </blockquote>
+                    <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                      <img src="{% static 'assets/img/avatar/14.jpg' %}" width="60" class="rounded-circle" alt="Annette Black">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">Annette Black</h6>
+                        <span class="fs-sm text-muted">QA Engineer in Company Name</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide h-auto px-2">
+                  <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                      <i class="bx bxs-quote-left"></i>
+                    </span>
+                    <blockquote class="card-body mt-2 mb-2">
+                      <p class="fs-lg mb-0" style="text-align: justify;">Id nibh sed purus eu. Viverra eu sed quam pellentesque magna ac sit odio. Mi at interdum hendrerit neque vulputate semper vulputate. Et augue lacinia magna tempor blandit dui porttitor in senectus. Porttitor nulla in ac in quis. Et ultrices lacus, nunc at nulla eu sodales. At aliquam euismod est in praesent ornare etiam id.</p>
+                    </blockquote>
+                    <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                      <img src="{% static 'assets/img/avatar/11.jpg' %}" width="60" class="rounded-circle" alt="Jerome Bell">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">Jerome Bell</h6>
+                        <span class="fs-sm text-muted">Co-founder of Lorem Company</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide h-auto px-2">
+                  <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                      <i class="bx bxs-quote-left"></i>
+                    </span>
+                    <blockquote class="card-body mt-2 mb-2">
+                      <p class="fs-lg mb-0" style="text-align: justify;">Nec iaculis fermentum interdum habitasse feugiat massa id pellentesque. Ut porta gravida lobortis facilisis dui augue. Fringilla nunc porttitor eget dictum tempus. Lorem erat eu congue curabitur est. Pulvinar morbi pulvinar venenatis rhoncus egestas euismod massa mauris. Vestibulum nunc lectus auctor quis. Natoque lectus tortor lacus.</p>
+                    </blockquote>
+                    <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                      <img src="{% static 'assets/img/avatar/13.jpg' %}" width="60" class="rounded-circle" alt="Robert Fox">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">Robert Fox</h6>
+                        <span class="fs-sm text-muted">CEO of Ipsum Company</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+
+              <!-- Pagination -->
+              <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Location -->
+      <section class="container py-5">
+        <div class="row mt-lg-3 pt-1 pt-md-4 pt-lg-5">
+          <div class="col-xl-3 col-md-4 text-center text-md-start">
+            <h3 class="h4">Venue</h3>
+            <h2 class="h1 mb-4">International Convention Centre</h2>
+            <div class="d-none d-md-block text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="118" height="118" fill="none"><g clip-path="url(#A)"><path d="M116.912 76.527c-4.963-3.081-9.413-6.675-13.52-10.782-1.37-1.369-3.766-.343-3.766 1.54 0 1.54-.171 3.081-.171 4.621-14.89 2.739-29.78 3.936-45.013 4.108-12.836.342-30.123 1.712-41.761-4.45-8.9-4.792-10.269-15.917-6.504-24.475 1.54-3.594 4.279-6.504 7.702-8.557 3.936-2.396 7.873-1.027 11.981-2.054.513-.171.685-.856.342-1.369-6.333-6.675-17.457 1.027-21.565 6.504-5.819 7.702-6.161 18.998-1.027 27.042 7.531 11.981 25.501 11.125 37.653 11.467 19.169.685 39.365.171 58.192-4.108 0 1.712.171 3.252.685 4.963 0 .342.171.513.342.685-1.369 1.198-.171 4.279 2.225 3.765 4.963-1.027 9.927-2.568 14.548-4.792 1.198-1.026.856-3.251-.343-4.107zm-13.178-4.45c2.396 2.054 4.792 4.108 7.531 5.99-2.396 1.027-4.964 1.712-7.531 2.396v-.685c-.514-2.567-.342-5.135 0-7.702z" fill="currentColor"/></g><defs><clipPath id="A"><path fill="#fff" d="M0 0h118v118H0z"/></clipPath></defs></svg>
+            </div>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <img src="{% static 'assets/img/landing/conference/venue.jpg' %}" class="rounded-3" width="952" alt="Venue">
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Buy ticket CTA -->
+      <section class="bg-gradient-primary py-5">
+        <div class="container py-2 py-md-4 py-lg-5">
+          <div class="row py-xl-3">
+            <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
+              <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Become a Part of the Digital Marketing!</h2>
+              <div class="d-flex align-items-center">
+                <div class="bg-white rounded-circle text-primary flex-shrink-0 p-3">
+                  <svg style="margin: 2px;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.0225 2.91133C17.2397 2.91133 16.5038 3.21602 15.9507 3.76914C15.3132 4.40664 14.9616 5.25508 14.9616 6.15977V8.98633C14.9616 12.516 13.0772 15.6098 10.26 17.3207H14.2585C18.0225 17.3207 21.0882 14.2598 21.0882 10.491V5.97227C21.0882 4.28945 19.71 2.91133 18.0225 2.91133ZM18.7772 5.97695C18.3882 5.97695 18.0741 5.66289 18.0741 5.27383C18.0741 4.88477 18.3882 4.5707 18.7772 4.5707C19.1663 4.5707 19.4804 4.88477 19.4804 5.27383C19.4804 5.66289 19.1663 5.97695 18.7772 5.97695ZM23.7929 1.71133C23.5163 1.43477 23.071 1.43477 22.7991 1.71133L21.4257 3.08477C20.6054 2.11914 19.3819 1.50977 18.0225 1.50977C16.8647 1.50977 15.7772 1.95977 14.9569 2.78008L0.20535 17.527C0.00378752 17.7285 -0.05715 18.0285 0.0506625 18.291C0.158475 18.5535 0.416288 18.727 0.702225 18.727H5.22097H9.4491L11.8069 21.0848H11.2444C10.8553 21.0848 10.5413 21.3988 10.5413 21.7879C10.5413 22.177 10.8553 22.491 11.2444 22.491H15.7632C16.1522 22.491 16.4663 22.177 16.4663 21.7879C16.4663 21.3988 16.1522 21.0848 15.7632 21.0848H13.7944L11.4366 18.727H14.2585C18.8007 18.727 22.4944 15.0332 22.4944 10.491V5.97227C22.4944 5.39102 22.3819 4.8332 22.1757 4.31758L23.7929 2.70039C24.0694 2.4332 24.0694 1.98789 23.7929 1.71133ZM2.3991 17.3207L13.5554 6.16445V8.98633C13.5554 13.5801 9.81472 17.3207 5.22097 17.3207H2.3991ZM21.0882 10.4957C21.0882 14.2598 18.0272 17.3254 14.2585 17.3254H10.26C13.0772 15.6145 14.9616 12.516 14.9616 8.98633V6.15977C14.9616 5.25508 15.3132 4.40664 15.9507 3.76914C16.5038 3.21602 17.2397 2.91133 18.0225 2.91133C19.71 2.91133 21.0882 4.28477 21.0882 5.97695V10.4957Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <p class="fs-xl text-light ps-3 mb-0">Hurry up!</p>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-7 order-lg-1">
+
+              <!-- Ticket card -->
+              <div class="position-relative">
+                <div class="position-relative overflow-hidden rounded-3 zindex-5 py-5 px-4 p-sm-5">
+                  <span class="position-absolute top-0 start-0 w-100 h-100 bg-repeat-0 bg-position-center-start zindex-2" style="background-image: url(/static/assets/img/landing/conference/price-card-left-bg.png);"></span>
+                  <span class="position-absolute top-0 end-0 w-100 h-100 bg-repeat-0 bg-position-center-end zindex-2" style="background-image: url(/static/assets/img/landing/conference/price-card-right-bg.png);"></span>
+                  <div class="px-md-4 position-relative zindex-5">
+                    <div class="d-sm-flex align-items-start justify-content-between">
+                      <div class="text-center text-sm-start me-sm-4">
+                        <h3 class="h1 text-heading">Digital Conference</h3>
+                      </div>
+                      <div class="d-table bg-white rounded-3 p-4 flex-shrink-0 mx-auto mx-sm-0">
+                        <img src="{% static 'assets/img/landing/conference/qr.png' %}" width="102" alt="QR Code">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <span class="position-absolute bg-dark opacity-35 bottom-0 mb-n2 d-dark-mode-none" style="left: 1.5rem; width: calc(100% - 3rem); height: 5rem; filter: blur(.75rem);"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- Back to top button -->
+    <a href="#top" class="btn-scroll-top" data-scroll>
+      <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+      <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+    </a>
+
+{% endblock %}

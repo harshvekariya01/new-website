@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Slick | IT (Software) Company Landing</title>
+  <meta name="description"
+    content="Unleash the power of the digital world with our expert web development services. Our  professed  platoon combines  slice- edge technologies with creative design to  make stunning websites that allure and engage your  followership. From responsive layouts to  flawless  stoner  gests , we deliver  acclimatized  results that elevate your online presence. Discover the perfect  mix of  invention and functionality, backed by our  unvarying commitment to quality and  customer satisfaction. transfigure your vision into reality with our trusted web development  mate.">
+  <meta name="keywords"
+    content="Market Research Website Development, SEO-Friendly Market Research Website, Web Development Services,Responsive Web Development,E-Commerce Website Development, UI/UX Design and Development, Project Management Tool, Market Research Project Management Software, Mobile App Development">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="google-site-verification" content="ORp-fJxVBAxWqEI_dYiYeYo-5l3ekFeLQUoBrMDls34" />
+  <meta name="p:domain_verify" content="77ec98f900f344c298960fa535f2e321" />
+
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon and Touch Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/logo_180.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/logo_32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/logo_16.png' %}">
+  <link rel="manifest" href="{% static 'assets/favicon/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'assets/favicon/safari-pinned-tab.svg' %}" color="#6366f1">
+  <link rel="shortcut icon" href="{% static 'assets/favicon/slick.ico' %}">
+  <meta name="msapplication-TileColor" content="#080032">
+  <meta name="msapplication-config" content="{% static 'assets/favicon/browserconfig.xml'%}">
+  <meta name="theme-color" content="#ffffff">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+  <!-- Vendor Styles -->
+  <link rel="stylesheet" media="screen" href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" />
+  <link rel="stylesheet" media="screen" href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" media="screen" href="{% static 'assets/vendor/img-comparison-slider/dist/styles.css' %}" />
+  <link rel="stylesheet" media="screen"
+    href="{% static 'assets/vendor/lightgallery/css/lightgallery-bundle.min.css' %}" />
+
+  <!-- Main Theme Styles + Bootstrap -->
+  <link rel="stylesheet" media="screen" href="{% static 'assets/css/theme.min.css' %}">
+  <link rel="stylesheet" media="screen" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/Navbar-Centered-Links-icons.css">
+
+  <!-- Page loading styles -->
+  <style>
+    .page-loading {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all .4s .2s ease-in-out;
+      transition: all .4s .2s ease-in-out;
+      background-color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 9999;
+    }
+
+    .dark-mode .page-loading {
+      background-color: #0b0f19;
+    }
+
+    .page-loading.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .page-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
+      opacity: 0;
+    }
+
+    .page-loading.active>.page-loading-inner {
+      opacity: 1;
+    }
+
+    .page-loading-inner>span {
+      display: block;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #9397ad;
+    }
+
+    .dark-mode .page-loading-inner>span {
+      color: #fff;
+      opacity: .6;
+    }
+
+    .page-spinner {
+      display: inline-block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: .75rem;
+      vertical-align: text-bottom;
+      border: .15em solid #b4b7c9;
+      border-right-color: transparent;
+      border-radius: 50%;
+      -webkit-animation: spinner .75s linear infinite;
+      animation: spinner .75s linear infinite;
+    }
+
+    .dark-mode .page-spinner {
+      border-color: rgba(255, 255, 255, .4);
+      border-right-color: transparent;
+    }
+
+    @-webkit-keyframes spinner {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spinner {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <!-- Theme mode -->
+  <script>
+    let mode = window.localStorage.getItem('mode'),
+      root = document.getElementsByTagName('html')[0];
+    if (mode !== null && mode === 'dark') {
+      root.classList.add('dark-mode');
+    } else {
+      root.classList.remove('dark-mode');
+    }
+  </script>
+
+  <!-- Page loading scripts -->
+  <script>
+    (function () {
+      window.onload = function () {
+        const preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+          preloader.remove();
+        }, 1000);
+      };
+    })();
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9VSBNEQWXS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-9VSBNEQWXS');
+  </script>
+</head>
+
+
+<!-- Body -->
+
+<body>
+
+  <!-- Page loading spinner -->
+  <div class="page-loading active">
+    <div class="page-loading-inner">
+      <div class="page-spinner"></div><span>Loading...</span>
+    </div>
+  </div>
+
+  <main class="page-wrapper">
+    <nav class="navbar navbar-expand-md bg-body py-3 sticky-top">
+      <div class="container"><a class="navbar-brand d-flex align-items-center" href="{%url 'slickapp:home'%}"><img src="{% static 'assets/img/slick_logo_1.png' %}" width="120" alt="Silicon"></a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2">
+          <span class="visually-hidden">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-2">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link {{home}}" href="{%url 'slickapp:home'%}">Home</a></li>
+            <li class="nav-item"><a class="nav-link {{about_us}}" href="{%url 'slickapp:abut_us'%}">About Us</a></li>
+            <li class="nav-item"><a class="nav-link {{services}}" href="{%url 'slickapp:services'%}">Services</a></li>
+            <li class="nav-item"><a class="nav-link {{contactus}}" href="{% url 'slickapp:contactus'%}">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </main>
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <!-- Footer -->
+    <footer class="footer dark-mode bg-dark pt-5 pb-4 pb-lg-5">
+      <div class="container pt-lg-4">
+        <div class="row pb-5">
+          <div class="col-lg-4 col-md-6">
+            <div class="navbar-brand text-dark p-0 me-0 mb-3 mb-lg-4">
+              <img src="{% static 'assets/img/slick_logo_white.png' %}" width="120" alt="Slick">
+            </div>
+            <p class="fs-sm text-light opacity-70 pb-lg-3 mb-4">Our creativity is your start of successful projects!.
+            </p>
+            <form class="needs-validation" novalidate>
+              <label for="subscr-email" class="form-label">Subscribe to our newsletter</label>
+            </form>
+          </div>
+          <div class="col-xl-6 col-lg-7 col-md-5 offset-xl-2 offset-md-1 pt-4 pt-md-1 pt-lg-0">
+            <div id="footer-links" class="row">
+              <div class="col-lg-4">
+                <h6 class="mb-2">
+                  <a href="#useful-links" class="d-block text-dark dropdown-toggle d-lg-none py-2"
+                    data-bs-toggle="collapse">Useful Links</a>
+                </h6>
+                <div id="useful-links" class="collapse d-lg-block" data-bs-parent="#footer-links">
+                  <ul class="nav flex-column pb-lg-1 mb-lg-3">
+                    <li class="nav-item"><a href="{%url 'slickapp:home'%}"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">Home</a></li>
+                    <li class="nav-item"><a href="{%url 'slickapp:abut_us'%}"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">About Us</a></li>
+                    <li class="nav-item"><a href="{%url 'slickapp:services'%}"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">Services</a></li>
+                    <li class="nav-item"><a href="{%url 'slickapp:contactus'%}"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">Contact Us</a></li>
+                  </ul>
+                  <ul class="nav flex-column mb-2 mb-lg-0">
+                    <li class="nav-item"><a href="{%url 'slickapp:terms_conditions_view'%}" target="blank" class="nav-link d-inline-block px-0 pt-1 pb-2">Terms &amp;
+                        Conditions</a></li>
+                    <li class="nav-item"><a href="{%url 'slickapp:privacy_policy_view'%}" target="blank" class="nav-link d-inline-block px-0 pt-1 pb-2">Privacy Policy</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-3">
+                <h6 class="mb-2">
+                  <a href="#social-links" class="d-block text-dark dropdown-toggle d-lg-none py-2"
+                    data-bs-toggle="collapse">Socials</a>
+                </h6>
+                <div id="social-links" class="collapse d-lg-block" data-bs-parent="#footer-links">
+                  <ul class="nav flex-column mb-2 mb-lg-0">
+                    <li class="nav-item"><a href="https://www.facebook.com/slickservice/" target="blank"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">Facebook</a></li>
+                    <li class="nav-item"><a href="https://www.linkedin.com/company/slick-services/" target="blank"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">LinkedIn</a></li>
+                    <li class="nav-item"><a href="https://twitter.com/i/flow/login" target="blank"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">Twitter</a></li>
+                    <li class="nav-item"><a href="https://www.instagram.com/accounts/login/" target="blank"
+                        class="nav-link d-inline-block px-0 pt-1 pb-2">Instagram</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-5 pt-2 pt-lg-0">
+                <h6 class="mb-2">Contact Us</h6>
+                <a class="fw-medium" href="{%url 'slickapp:contactus'%}">sales@slickservices.in</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="nav d-block fs-xs text-center text-md-start pb-2 pb-lg-0 mb-0">
+          <span class="text-light opacity-50">&copy; Copy right all rights reserved.</span>
+          <a class="nav-link d-inline-block p-0" rel="noopener">Slick Services</a>
+        </p>
+      </div>
+    </footer>
+
+
+    <!-- Back to top button -->
+    <a href="#top" class="btn-scroll-top" data-scroll>
+      <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+      <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+    </a>
+
+
+    <!-- Vendor Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"></script>
+    <script src="{% static 'assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/vanilla-tilt/dist/vanilla-tilt.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/parallax-js/dist/parallax.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/rellax/rellax.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/img-comparison-slider/dist/index.js' %}"></script>
+    <script src="{% static 'assets/vendor/@lottiefiles/lottie-player/dist/lottie-player.js' %}"></script>
+    <script src="{% static 'assets/vendor/cleave.js/dist/cleave.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/lightgallery/lightgallery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/lightgallery/plugins/fullscreen/lg-fullscreen.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/lightgallery/plugins/zoom/lg-zoom.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/lightgallery/plugins/video/lg-video.min.js' %}"></script>
+
+
+    <!-- Main Theme Script -->
+    <script src="{% static 'assets/js/theme.min.js' %}"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

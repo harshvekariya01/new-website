@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}contact-us{% endblock %}
+{% block content %}
+
+
+      <!-- Page content -->
+      <section class="bg-size-cover bg-position-bottom-center bg-repeat-0 py-5" style="background-image: url(assets/img/contacts/bg.svg);">
+        <div class="container pt-5 pb-lg-4 pb-xl-5">
+
+          <!-- Breadcrumb -->
+          <nav class="pt-lg-4" aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">
+                <a><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Contacts</li>
+            </ol>
+          </nav>
+
+          <div class="row pt-md-2 pt-lg-5 pb-2 pb-md-4">
+            <div class="col-xxl-4 col-xl-5 col-lg-6 pt-3 mt-3">
+              <h2 class="pb-sm-2 pb-md-3 mb-3">Want to work with us?</h>
+              <h2 class="display-1 text-gradient-primary pb-sm-2 pb-md-3 mb-3">Let's talk!</h2>
+              <!-- fw-normal pb-2 mb-4 -->
+              <div class="contact-details"><a class="nav-link mb-2 text-primary"><i class='bx bx-envelope bx-md'></i> sales@slickservices.in</a></div>
+              <div class="nav-link mb-3 text-primary"><i class='bx bxs-phone-call bx-md' ></i> +91 9009989797</div>
+              <div class="nav-link mb-3 text-primary"><i class='bx bx-location-plus bx-md'></i> 404 , Central Sangath IPL, behind 4D Square Mall, near North Plaza, Motera, Ahmedabad, Gujarat, India - 380005 </div>
+              
+            </div>
+            <div class="col-lg-6 offset-xl-1 offset-xxl-2 pt-3 pt-md-4 pt-lg-3 mt-3">
+              <form class="needs-validation" novalidate action="{% url 'slickapp:contactus' %}"  method="post">
+                {% csrf_token %}
+                {% for message in messages %}
+                <div class="alert {{message.tags}} fade show text-left" role="alert">
+                    {{message}}
+                </div>
+                {% endfor %}
+                <div class="row g-4">
+                  <div class="col-sm-6">
+                    <label for="fn" class="form-label fs-base">Full name</label>
+                    <input type="text" class="form-control form-control-lg" id="fn" name="full_name" required>
+                    <div class="invalid-feedback">Please enter your full name!</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="email" class="form-label fs-base">Email</label>
+                    <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                    <div class="invalid-feedback">Please provide a valid email address!</div>
+                  </div>
+                  <div class="col-sm-12">
+                    <label for="services" class="form-label fs-base">Topic</label>
+                    <select class="form-control form-control-lg" id="services" name="services" required>
+                      <option selected disabled>Select Topic</option>
+                      {% for visitor_query_obj_list_key, visitor_query_obj_list_value in visitor_query_obj.items%}
+                        <option value="{{visitor_query_obj_list_key}}">{{visitor_query_obj_list_value}}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please provide a Subject</div>
+                  </div>
+                  <div class="col-12 pb-2">
+                    <label for="message" class="form-label fs-base">Message</label>
+                    <textarea class="form-control form-control-lg" id="message" rows="3" name="message" required></textarea>
+                    <div class="invalid-feedback">Please provide a valid email address!</div>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-lg btn-primary w-100 w-sm-auto">Contact Us</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+
+
+    {% endblock %}
