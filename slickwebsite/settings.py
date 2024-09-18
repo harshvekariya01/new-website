@@ -25,9 +25,9 @@ STATIC_DIR = BASE_DIR/'static'
 SECRET_KEY = 'django-insecure-ch!tavppmarzg^vy_eyuzf=mdjo+e_)ecogqui-t4&l^s!j^-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SERVER_TYPE = 'localhost'  
+# SERVER_TYPE = 'localhost'  
 # SERVER_TYPE = 'staging'  
-# SERVER_TYPE = 'production'
+SERVER_TYPE = 'production'
 
 if SERVER_TYPE in ["localhost"]:
     DEBUG = True
@@ -104,9 +104,9 @@ if SERVER_TYPE == "staging" or SERVER_TYPE == "production":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'slickwebsite',
-            'USER': 'slickservicesuser',
-            'PASSWORD': '7vrvx3gNYZ[]A_gLNS(_;[P',
+            'NAME': 'myproject',
+            'USER': 'myprojectuser',
+            'PASSWORD': 'password',
             'HOST': 'localhost',
             'PORT': '',
         }
