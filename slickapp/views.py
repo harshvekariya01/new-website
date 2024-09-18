@@ -4,8 +4,8 @@ from django.views.generic import TemplateView
 import os, re
 from django.contrib import messages
 from slickapp.models import visitorquery,servicesvisitorrequest
-from sendgrid.helpers.mail import Mail
-from sendgrid import SendGridAPIClient
+# from sendgrid.helpers.mail import Mail
+# from sendgrid import SendGridAPIClient
 from django.template.loader import render_to_string
 from django.conf import settings
 
